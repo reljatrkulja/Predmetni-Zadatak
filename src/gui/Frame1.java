@@ -1,12 +1,17 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.event.*;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 public class Frame1 extends JFrame {
 	public Frame1(){
@@ -24,10 +29,44 @@ public class Frame1 extends JFrame {
 		setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 		
 		setBackground(Color.RED);
-		JButton button = new JButton("Test");
-		add(button);
+		
+		JMenuBar menuBar = new JMenuBar();
+		
+		JMenu fileMenu = new JMenu("File");
+		JMenu editMenu = new JMenu("Edit");
+		JMenu aboutMenu = new JMenu("About");
+		
+		JMenuItem newMenutItem = new JMenuItem("New");
+		JMenuItem openMenutItem = new JMenuItem("Open");
+		JMenuItem exitMenutItem = new JMenuItem("Exit");
+		
+		JMenuItem editMenutItem = new JMenuItem("Edit");
+		JMenuItem deleteMenutItem = new JMenuItem("Delete");
+		
+		JMenuItem aboutMenutItem = new JMenuItem("About");
+		
+		menuBar.add(fileMenu);
+		menuBar.add(editMenu);
+		menuBar.add(aboutMenu);
+		
+		fileMenu.add(newMenutItem);
+		fileMenu.add(openMenutItem);
+		fileMenu.add(exitMenutItem);
+		
+		editMenu.add(editMenutItem);
+		editMenu.add(deleteMenutItem);
+		
+		aboutMenu.add(aboutMenutItem);
+		
+		setJMenuBar(menuBar);
 		
 		
 	}
+	private void showMenu() {
 
+		
+	}
+	   
 }
+
+
