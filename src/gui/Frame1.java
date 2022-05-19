@@ -1,17 +1,25 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.*;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 
 public class Frame1 extends JFrame {
 	public Frame1(){
@@ -26,9 +34,8 @@ public class Frame1 extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-		
 		setBackground(Color.RED);
+		
 		
 		JMenuBar menuBar = new JMenuBar();
 		
@@ -60,13 +67,20 @@ public class Frame1 extends JFrame {
 		
 		setJMenuBar(menuBar);
 		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDateTime currentTime = LocalDateTime.now();  
+		System.out.println(dtf.format(currentTime));
+	
+		JPanel statusPanel = new JPanel();
+		statusPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
+		add(statusPanel, BorderLayout.SOUTH);
+		statusPanel.setPreferredSize(new Dimension(getWidth(), 24));
+		statusPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		JLabel statusLabel = new JLabel(dtf.format(currentTime));
 		
-	}
-	private void showMenu() {
+		statusPanel.add(statusLabel);
 
-		
-	}
-	   
+	}  
 }
 
 
