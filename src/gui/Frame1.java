@@ -12,14 +12,18 @@ import java.awt.Toolkit;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
+
+import rs.ac.uns.ftn.oisisi.main.TableTab;
 
 public class Frame1 extends JFrame {
 	public Frame1(){
@@ -43,7 +47,7 @@ public class Frame1 extends JFrame {
 		JMenu editMenu = new JMenu("Edit");
 		JMenu aboutMenu = new JMenu("About");
 		
-		JMenuItem newMenutItem = new JMenuItem("New");
+		JMenu newMenutItem = new JMenu("New");
 		JMenuItem openMenutItem = new JMenuItem("Open");
 		JMenuItem exitMenutItem = new JMenuItem("Exit");
 		
@@ -51,6 +55,9 @@ public class Frame1 extends JFrame {
 		JMenuItem deleteMenutItem = new JMenuItem("Delete");
 		
 		JMenuItem aboutMenutItem = new JMenuItem("About");
+		
+		JMenuItem newWorker = new JMenuItem("Worker");
+		JMenuItem newSoftware = new JMenuItem("Software");
 		
 		menuBar.add(fileMenu);
 		menuBar.add(editMenu);
@@ -64,6 +71,9 @@ public class Frame1 extends JFrame {
 		editMenu.add(deleteMenutItem);
 		
 		aboutMenu.add(aboutMenutItem);
+		
+		newMenutItem.add(newWorker);
+		newMenutItem.add(newSoftware);
 		
 		setJMenuBar(menuBar);
 		
@@ -79,8 +89,17 @@ public class Frame1 extends JFrame {
 		JLabel statusLabel = new JLabel(dtf.format(currentTime));
 		
 		statusPanel.add(statusLabel);
-
+		
+		JTabbedPane myTabbedPane = new JTabbedPane();
+		JLabel workersTab = new JLabel("Workers");
+		JLabel softwareTab = new JLabel("Software");
+		
+		myTabbedPane.addTab("Workers", workersTab);
+		myTabbedPane.addTab("Software", softwareTab);
+		
+		this.add(myTabbedPane);
+		
+		
 	}  
 }
-
 
