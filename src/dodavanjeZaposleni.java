@@ -1,17 +1,33 @@
-package model;
+package dodavanje;
 
-import java.util.Date;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
 	
+
+public class dodavanjeZaposleni extends JPanel {
+	
+	private static final long serialVersionUID = -2379583815311076207L;
+	
+
 public dodavanjeZaposleni() {
 	
 	Color backgroundColor = new Color(240, 240, 240);// for inputs
 	setLayout(new GridBagLayout());
 	JPanel polja = new JPanel(new GridLayout(6, 2));
-
-	polja.setBackground(Color.lightGray);// for small panel
-	setBackground(new Color(200, 200, 200));
 	
-	
+	//Dugme za dodavanje
 	JButton addBtn = new JButton("Dodaj");
 	
 	
@@ -60,7 +76,7 @@ public dodavanjeZaposleni() {
 	polja.add(addBtn);
 	add(polja);
 	
-	addBtn.addActionListener(new ActionListener() {
+	/*addBtn.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			Zaposleni user= new Zaposleni();
 			user.setIme(ime);
@@ -79,5 +95,6 @@ public dodavanjeZaposleni() {
 			}
 			
 		}
+	}*/
 	}
 }
