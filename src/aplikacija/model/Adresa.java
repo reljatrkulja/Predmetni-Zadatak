@@ -1,4 +1,4 @@
-package model;
+package aplikacija.model;
 
 public class Adresa {
 	private int broj;
