@@ -33,9 +33,8 @@ public class MenuBar extends JMenuBar {
 		JMenuItem aboutMenutItem = new JMenuItem("About");
 		
 		JMenuItem newWorker = new JMenuItem("Worker");
-		JMenuItem mniModalDialog = new JMenuItem("Modalni dijalog");
 		
-		mniModalDialog.addActionListener(new ActionListener() {
+		newWorker.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dialogWorker dialog = new dialogWorker(parent, "Add new Worker", true);
