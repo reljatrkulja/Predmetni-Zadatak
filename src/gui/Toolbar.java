@@ -30,8 +30,7 @@ public class Toolbar extends JToolBar {
 		Image deleteIcon = deleteImage.getImage();
 		Image newDelete = deleteIcon.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
 		deleteImage = new ImageIcon(newDelete);
-		
-				
+			
 				
 		JButton btnNew = new JButton();
 		btnNew.setToolTipText("New");
