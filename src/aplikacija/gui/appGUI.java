@@ -1,4 +1,4 @@
-package gui;
+package aplikacija.gui;
 
 import java.awt.BorderLayout;
 

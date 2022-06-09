@@ -1,44 +1,52 @@
-package aplikacija.dodavanje;
+package aplikacija.dialog;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridBagLayout;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
 
 import aplikacija.model.Zaposleni;
 import aplikacija.model.Adresa;
 import aplikacija.model.Softver;
 import aplikacija.model.RadnoMesto;
+import aplikacija.gui.Frame1;
 
-	
 
-public class dodavanjeZaposleni extends JPanel {
-	
+
+public class dialogWorker extends JDialog implements ActionListener {
+
 	private static final long serialVersionUID = -514322840576145538L;
 
-		public dodavanjeZaposleni() {
+	public static final int OK = 0;
+	public static final int CANCEL = 1;
+
+	private int mode = 1;
+	private JTextArea area;
+
+	public dialogWorker(Frame parent, String title, boolean modal) {
+		super(parent, "Add Worker", true);
+		mode = dialogWorker.CANCEL;
+		setLayout(new BorderLayout());
+
+		setSize(450, 250);
+		setLocationRelativeTo(parent);
 		
-		Color backgroundColor = new Color(240, 240, 240);// for inputs
-		setLayout(new GridBagLayout());
 		JPanel polja = new JPanel(new GridLayout(6, 2));
-		
-		//////////////////////////////////////////////////////////Dugme za dodavanje
-		JButton addBtn = new JButton("OK");
-		
-		
-		//////////////////////////////////////////////////////////Polja
-		
-		//////////////////////////////////////////////////////////Ime i prezime
+
 		JLabel ime = new JLabel("Ime:");
 		polja.add(ime);
 		String imeString = new String(ime.toString());
@@ -159,27 +167,23 @@ public class dodavanjeZaposleni extends JPanel {
 		
 		
 		//////////////////////////////////////////////////////////Radno mesto
-		JLabel radnoMesto = new JLabel("Radno mesto:");
-		polja.add(radnoMesto);
-		JComboBox<RadnoMesto> RadnoMesto = new JComboBox<RadnoMesto>(RadnoMesto.values()); 
+		//JLabel radnoMesto = new JLabel("Radno mesto:");
+		//polja.add(radnoMesto);
+		//JComboBox<RadnoMesto> RadnoMesto = new JComboBox<RadnoMesto>(RadnoMesto.values()); 
+
+		JPanel panCommands = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		JButton btnOk = new JButton("OK");
+		btnOk.addActionListener(this);
+		JButton btnCancel = new JButton("CANCEL");
+		btnCancel.addActionListener(this);
+
+		panCommands.add(btnOk);
+		panCommands.add(btnCancel);
+
+		add(new JScrollPane(area), BorderLayout.CENTER);
+		add(panCommands, BorderLayout.SOUTH);
 		
-		
-		//////////////////////////////////////////////////////////Dugme za nazad
-		JButton back= new JButton("CANCEL");
-		back.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Frame1.setView(new Frame1());
-			}
-		});
-		polja.add(back);
-		
-		
-		polja.add(addBtn);
-		add(polja);
-		
-		addBtn.addActionListener(new ActionListener() {
+		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Zaposleni user= new Zaposleni();
 				user.setIme(imeString);
@@ -191,14 +195,44 @@ public class dodavanjeZaposleni extends JPanel {
 				user.setSoftver(softverNaziv);
 				//user.setRadnoMesto(RadnoMesto); ?
 				
-				if(Zaposleni.register(user)) {
+				/*if(Zaposleni.register(user)) {
 					Frame1.setView(new Frame1());
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "JMBG već postoji");
-				}
+				}*/
 				
-			});
-		}
+			}
+		});
+		
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getActionCommand().equals("OK")) {
+			mode = dialogWorker.OK;
+		} else {
+			mode = dialogWorker.CANCEL;
+		}
+		setVisible(false);
+
+	}
+
+	public int getMode() {
+		return mode;
+	}
+
+	public void setMode(int mode) {
+		this.mode = mode;
+	}
+
+	public JTextArea getArea() {
+		return area;
+	}
+
+	public void setArea(JTextArea area) {
+		this.area = area;
+	}
+
 }
+
