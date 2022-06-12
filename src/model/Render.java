@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Render {
+	private long id;
 	private List<String> materijali = new ArrayList<String>();
 	private List<String> kamere = new ArrayList<String>();
 	private List<String> objekti = new ArrayList<String>();
@@ -12,14 +13,21 @@ public class Render {
 	public Render() {
 		super();
 	}
-	public Render(List<String> materijali, List<String> kamere, List<String> objekti, String naziv) {
+	public Render(long id, List<String> materijali, List<String> kamere, List<String> objekti, String naziv) {
 		super();
+		this.id = id;
 		this.materijali = materijali;
 		this.kamere = kamere;
 		this.objekti = objekti;
 		this.naziv = naziv;
 	}
 	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public List<String> getMaterijali() {
 		return materijali;
 	}
