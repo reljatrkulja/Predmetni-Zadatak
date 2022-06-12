@@ -3,6 +3,7 @@ package model;
 import java.util.Date;
 
 public class Zaposleni {
+	private long id;
 	private String ime;
 	private String prezime;
 	private String jmbg;
@@ -15,7 +16,7 @@ public class Zaposleni {
 	public Zaposleni() {
 		super();
 	}
-	public Zaposleni(String ime, String prezime, String jmbg, Date datumRodjenja, String email, Adresa adresa,
+	public Zaposleni(long id, String ime, String prezime, String jmbg, Date datumRodjenja, String email, Adresa adresa,
 			Softver softver, RadnoMesto radnoMesto) {
 		super();
 		this.ime = ime;
@@ -28,6 +29,12 @@ public class Zaposleni {
 		this.radnoMesto = radnoMesto;		
 	}
 	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String getIme() {
 		return ime;
 	}

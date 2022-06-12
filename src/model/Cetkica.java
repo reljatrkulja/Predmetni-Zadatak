@@ -3,6 +3,7 @@ package model;
 import java.awt.Color;
 
 public class Cetkica {
+	private long id;
 	private String naziv;
 	private String namena;
 	private Color boja;
@@ -10,13 +11,19 @@ public class Cetkica {
 	public Cetkica() {
 		super();
 	}
-	public Cetkica(String naziv, String namena, Color boja) {
+	public Cetkica(long id, String naziv, String namena, Color boja) {
 		super();
 		this.naziv = naziv;
 		this.namena = namena;
 		this.boja = boja;
 	}
 
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String getNaziv() {
 		return naziv;
 	}
