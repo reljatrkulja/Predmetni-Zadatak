@@ -9,6 +9,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import aplikacija.dialog.dialogWorker;
+import aplikacija.dialog.dialogSoftware;
 
 public class MenuBar extends JMenuBar {
 	/**
@@ -46,6 +47,16 @@ public class MenuBar extends JMenuBar {
 		
 		JMenuItem newSoftware = new JMenuItem("Software");
 		
+		newSoftware.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				dialogSoftware dialog = new dialogSoftware(parent, "Add new Software", true);
+				dialog.setVisible(true);
+			}
+		});
+		
+		newMenutItem.add(newSoftware);
+		
 		menuBar.add(fileMenu);
 		menuBar.add(editMenu);
 		menuBar.add(aboutMenu);
@@ -60,7 +71,6 @@ public class MenuBar extends JMenuBar {
 		aboutMenu.add(aboutMenutItem);
 		
 		
-		newMenutItem.add(newSoftware);
 		
 		add(fileMenu);
 		add(editMenu);

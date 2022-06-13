@@ -32,7 +32,7 @@ public class Cetkica {
 	public Color getBoja() {
 		return boja;
 	}
-	public void setBoja(Color boja) {
+	public void setColor(Color boja) {
 		this.boja = boja;
 	}
 }

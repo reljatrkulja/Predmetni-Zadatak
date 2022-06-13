@@ -7,7 +7,7 @@ import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -27,6 +27,7 @@ import aplikacija.model.RadnoMesto;
 import aplikacija.gui.Frame1;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.JFormattedTextField;
 
@@ -85,9 +86,10 @@ public class dialogWorker extends JDialog implements ActionListener {
 		JLabel datumRodjenja = new JLabel("Datum rodjenja:");
 		polja.add(datumRodjenja);
 		
-		JTextField datumPolje = new JTextField();
+		JFormattedTextField datumPolje = new JFormattedTextField(SimpleDateFormat.getDateInstance(DateFormat.MEDIUM));
 		polja.add(datumPolje);
-		
+		datumPolje.setValue(new Date());
+
 		
 		////////////////////// Email
 		JLabel email = new JLabel("Email:");
@@ -173,7 +175,7 @@ public class dialogWorker extends JDialog implements ActionListener {
 				user.setIme(imeString);
 				user.setPrezime(prezimeString);
 				user.setJmbg(jmbgString);
-				//user.setDatumRodjenja(datumRodjenja);
+				//user.setDatumRodjenja(datum1);
 				user.setEmail(emailString);
 				user.setAdresa(adresa);
 				user.setSoftver(softverNaziv);
