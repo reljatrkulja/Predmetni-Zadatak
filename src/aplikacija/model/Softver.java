@@ -5,15 +5,15 @@ import java.util.List;
 
 public class Softver {
 	private String naziv;
-	private Cetkica cetkice;
+	private ArrayList<Cetkica> cetkice;
 	private String fajlFormat;
-	private String alati;;
+	private String alati;
 	private Render render;
 	
 	public Softver() {
 		super();
 	}
-	public Softver(String naziv, Cetkica cetkice, String fajlFormat, String alati, Render render) {
+	public Softver(String naziv, ArrayList<Cetkica> cetkice, String fajlFormat, String alati, Render render) {
 		super();
 		this.naziv = naziv;
 		this.cetkice = cetkice;
@@ -28,10 +28,10 @@ public class Softver {
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
 	}
-	public Cetkica getCetkice() {
+	public ArrayList<Cetkica> getCetkice() {
 		return cetkice;
 	}
-	public void setCetkice(Cetkica cetkice) {
+	public void setCetkice(ArrayList<Cetkica> cetkice) {
 		this.cetkice = cetkice;
 	}
 	public String getFajlFormat() {

@@ -9,6 +9,9 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.colorchooser.*;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -216,7 +219,7 @@ public class dialogSoftware extends JDialog implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				Softver software= new Softver();
 				software.setNaziv(nazivPolje.getText());
-				software.setCetkice(cetkica);
+				software.setCetkice(new ArrayList<Cetkica>(List.of(cetkica)));
 				software.setFajlFormat(fajlFormatPolje.getText());
 				software.setAlati(izabranAlat);
 				software.setRender(render);

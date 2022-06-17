@@ -11,11 +11,16 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.SwingConstants;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.BevelBorder;
-import aplikacija.gui.MenuBar;
-import aplikacija.gui.Toolbar;
+import javax.swing.table.DefaultTableModel;
+
+import aplikacija.model.Softver;
+import aplikacija.model.Zaposleni;
+import aplikacija.utils.Utils;
 
 
 public class Frame1 extends JFrame {
@@ -60,11 +65,68 @@ public class Frame1 extends JFrame {
 		statusPanel.add(statusLabel);
 		
 		JTabbedPane myTabbedPane = new JTabbedPane();
-		JLabel workersTab = new JLabel("Workers");
-		JLabel softwareTab = new JLabel("Software");
 		
-		myTabbedPane.addTab("Workers", workersTab);
-		myTabbedPane.addTab("Software", softwareTab);
+//		Pravljenje tabele zaposlenih
+		String[] zaposleniHeader = new String[] { "Ime", "Prezime", "JMBG", "Datum rodjenja", "Email", "Adresa", "Softver",
+				"Radno mesto"};
+		
+		int velicinaZaposleni = Utils.getZaposleni().size();
+		Object[][] contentZaposleni = new Object[velicinaZaposleni][zaposleniHeader.length];
+		for(int i = 0; i < velicinaZaposleni; i++) {
+			Zaposleni zaposleni = Utils.getZaposleni().get(i);
+			contentZaposleni[i][0] = zaposleni.getIme();
+			contentZaposleni[i][1] = zaposleni.getPrezime();
+			contentZaposleni[i][2] = zaposleni.getJmbg();
+			contentZaposleni[i][3] = zaposleni.getDatumRodjenja();
+			contentZaposleni[i][4] = zaposleni.getEmail();
+			contentZaposleni[i][5] = zaposleni.getAdresa().getUlica() + " " + zaposleni.getAdresa().getBroj();
+			contentZaposleni[i][6] = zaposleni.getSoftver().getNaziv();
+			contentZaposleni[i][7] = zaposleni.getRadnoMesto();
+		}
+		
+		DefaultTableModel wtModel = new DefaultTableModel(contentZaposleni, zaposleniHeader);
+		JTable zaposleniTable = new JTable(wtModel);
+		
+		zaposleniTable.setRowSelectionAllowed(true);
+		zaposleniTable.setColumnSelectionAllowed(false);
+		zaposleniTable.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		zaposleniTable.setDefaultEditor(Object.class, null);
+		JScrollPane ztScrollPane = new JScrollPane(zaposleniTable);
+		
+//		Pravljenje tabele softvera		
+		String[] softverHeader = new String[] { "Naziv", "Cetkice", "Format fajla", "Alati", "Render" };
+
+		int velicinaSoftver = Utils.getSoftveri().size();
+		Object[][] contentSoftver = new Object[velicinaSoftver][softverHeader.length];
+		for(int i = 0; i < velicinaSoftver; i++) {
+			Softver softver = Utils.getSoftveri().get(i);
+			String cetkiceString = "";
+			int brojCetkica = 0;
+			for(int j = 0; j < softver.getCetkice().size(); j++) {
+				if(brojCetkica != 0) {
+					cetkiceString += ", ";
+				}
+				cetkiceString += softver.getCetkice().get(j).getNaziv();
+				brojCetkica ++;
+			}
+			contentSoftver[i][0] = softver.getNaziv();
+			contentSoftver[i][1] = cetkiceString;
+			contentSoftver[i][2] = softver.getFajlFormat();
+			contentSoftver[i][3] = softver.getAlati();
+			contentSoftver[i][4] = softver.getRender().getNaziv();
+		}
+		
+		DefaultTableModel stModel = new DefaultTableModel(contentSoftver, softverHeader);
+		JTable softwareTable = new JTable(stModel);
+		
+		softwareTable.setRowSelectionAllowed(true);
+		softwareTable.setColumnSelectionAllowed(false);
+		softwareTable.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		softwareTable.setDefaultEditor(Object.class, null);
+		JScrollPane stScrollPane = new JScrollPane(softwareTable);
+		
+		myTabbedPane.addTab("Zaposleni", ztScrollPane);
+		myTabbedPane.addTab("Softver", stScrollPane);
 		
 		this.add(myTabbedPane);
 		
