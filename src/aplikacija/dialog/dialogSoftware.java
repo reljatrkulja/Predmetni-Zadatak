@@ -63,7 +63,6 @@ public class dialogSoftware extends JDialog implements ActionListener {
 		JTextField nazivPolje = new JTextField();
 		polja.add(nazivPolje);
 		
-		String nazivSoftveraString = new String(nazivSoftvera.toString());
 		
 		///////////////////// Cetkica
 		//Naziv cetkice
@@ -117,7 +116,6 @@ public class dialogSoftware extends JDialog implements ActionListener {
 		JTextField fajlFormatPolje = new JTextField();
 		polja.add(fajlFormatPolje);
 		
-		String fajlFormatString = new String(fajlFormat.toString());
 		
 		///////////////////// Alati
 		JLabel alati = new JLabel("Alati za animaciju:");
@@ -152,7 +150,7 @@ public class dialogSoftware extends JDialog implements ActionListener {
 		    selectedButton = zbrush;
 		}
 
-		String izabranAlat = new String(selectedButton.toString());
+		String izabranAlat = new String(selectedButton.getText());
 		
 		///////////////////// Render
 		JLabel nazivRender = new JLabel("Render - NAZIV:");
@@ -161,7 +159,7 @@ public class dialogSoftware extends JDialog implements ActionListener {
 		JTextField renderPolje = new JTextField();
 		polja.add(renderPolje);
 		
-		String renderString = new String(nazivRender.toString());
+		String renderString = renderPolje.getText();
 		
 		// Materijali
 		JLabel materijali = new JLabel("Materijali:");
@@ -170,8 +168,7 @@ public class dialogSoftware extends JDialog implements ActionListener {
 		JTextField materijaliPolje = new JTextField();
 		polja.add(materijaliPolje);
 		
-		String materijaliString = new String(materijali.toString());
-		
+		String materijaliString = materijaliPolje.getText();
 		// Kamere
 		JLabel kamere = new JLabel("Kamere:");
 		polja.add(kamere);
@@ -179,7 +176,7 @@ public class dialogSoftware extends JDialog implements ActionListener {
 		JTextField kamerePolje = new JTextField();
 		polja.add(kamerePolje);
 		
-		String kamereString = new String(kamere.toString());
+		String kamereString = kamerePolje.getText();
 		
 		// Objekti
 		JLabel objekti = new JLabel("Objekti:");
@@ -188,7 +185,7 @@ public class dialogSoftware extends JDialog implements ActionListener {
 		JTextField objektiPolje = new JTextField();
 		polja.add(objektiPolje);
 		
-		String objektiString = new String(objekti.toString());
+		String objektiString = objektiPolje.getText();
 		
 		Render render = new Render();
 		render.setNaziv(renderString);
@@ -218,10 +215,11 @@ public class dialogSoftware extends JDialog implements ActionListener {
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Softver software= new Softver();
-				software.setNaziv(nazivSoftveraString);
+				software.setNaziv(nazivPolje.getText());
 				software.setCetkice(cetkica);
-				software.setFajlFormat(fajlFormatString);
+				software.setFajlFormat(fajlFormatPolje.getText());
 				software.setAlati(izabranAlat);
+				software.setRender(render);
 				
 				
 				/*if(Zaposleni.register(user)) {

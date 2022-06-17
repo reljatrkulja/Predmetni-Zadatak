@@ -62,7 +62,6 @@ public class dialogWorker extends JDialog implements ActionListener {
 		JTextField imePolje = new JTextField();
 		polja.add(imePolje);
 		
-		String imeString = new String(ime.toString());
 		
 		////////////////////// Prezime
 		JLabel prezime = new JLabel("Prezime:");
@@ -71,7 +70,6 @@ public class dialogWorker extends JDialog implements ActionListener {
 		JTextField prezimePolje = new JTextField();
 		polja.add(prezimePolje);
 		
-		String prezimeString = new String(prezime.toString());
 		
         ////////////////////// JMBG
 		JLabel jmbg = new JLabel("JMBG:");
@@ -80,7 +78,6 @@ public class dialogWorker extends JDialog implements ActionListener {
 		JTextField jmbgPolje = new JTextField();
 		polja.add(jmbgPolje);
 		
-		String jmbgString = new String(jmbg.toString());
 		
 		////////////////////// Datum rodjenja
 		JLabel datumRodjenja = new JLabel("Datum rodjenja:");
@@ -108,7 +105,7 @@ public class dialogWorker extends JDialog implements ActionListener {
 		JTextField brojUlicePolje = new JTextField();
 		polja.add(brojUlicePolje);
 		
-		String brojUliceString = new String(brojUlice.toString());
+		String brojUliceString = brojUlicePolje.getText();
 		
 		//Naziv ulice
 		JLabel nazivUlice = new JLabel("Naziv ulice:");
@@ -117,7 +114,7 @@ public class dialogWorker extends JDialog implements ActionListener {
 		JTextField nazivUlicePolje = new JTextField();
 		polja.add(nazivUlicePolje);
 		
-		String nazivUliceString = new String(nazivUlice.toString());
+		String nazivUliceString = nazivUlicePolje.getText();
 		
 		//Grad
 		JLabel grad = new JLabel("Grad:");
@@ -126,7 +123,7 @@ public class dialogWorker extends JDialog implements ActionListener {
 		JTextField gradPolje = new JTextField();
 		polja.add(gradPolje);
 		
-		String gradString = new String(grad.toString());
+		String gradString = gradPolje.getText();
 		
 		Adresa adresa = new Adresa();
 		adresa.setBroj(brojUliceString);
@@ -140,7 +137,7 @@ public class dialogWorker extends JDialog implements ActionListener {
 		JTextField softverPolje = new JTextField();
 		polja.add(softverPolje);
 		
-		String softverString = new String(softver.toString());
+		String softverString = softverPolje.getText();
 		Softver softverNaziv = new Softver();
 		softverNaziv.setNaziv(softverString);
 		
@@ -150,8 +147,8 @@ public class dialogWorker extends JDialog implements ActionListener {
 		
 		JComboBox radnoMestoPolje = new JComboBox<RadnoMesto>(RadnoMesto.values());
 		polja.add(radnoMestoPolje);
-		
-		//radnoMesto.getRadnoMesto(radnoMestoPolje);
+	
+		radnoMestoPolje.getSelectedItem();
 		
 		// Deo za dugmad
 		JPanel panCommands = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -172,14 +169,14 @@ public class dialogWorker extends JDialog implements ActionListener {
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Zaposleni user= new Zaposleni();
-				user.setIme(imeString);
-				user.setPrezime(prezimeString);
-				user.setJmbg(jmbgString);
+				user.setIme(imePolje.getText());
+				user.setPrezime(prezimePolje.getText());
+				user.setJmbg(jmbgPolje.getText());
 				//user.setDatumRodjenja(datum1);
-				user.setEmail(emailString);
+				user.setEmail(emailPolje.getText());
 				user.setAdresa(adresa);
 				user.setSoftver(softverNaziv);
-				//user.setRadnoMesto(radnoMesto);
+				//user.setRadnoMesto(radnoMestoPolje.values());
 				
 				/*if(Zaposleni.register(user)) {
 					Frame1.setView(new Frame1());
