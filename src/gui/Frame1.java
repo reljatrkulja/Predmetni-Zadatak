@@ -11,10 +11,12 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -26,6 +28,8 @@ import javax.swing.border.BevelBorder;
 import rs.ac.uns.ftn.oisisi.main.TableTab;
 
 public class Frame1 extends JFrame {
+    static JList b;
+    
 	public Frame1(){
 	
 		Toolkit kit = Toolkit.getDefaultToolkit();
@@ -91,7 +95,24 @@ public class Frame1 extends JFrame {
 		statusPanel.add(statusLabel);
 		
 		JTabbedPane myTabbedPane = new JTabbedPane();
-		JLabel workersTab = new JLabel("Workers");
+		JPanel workersTab = new JPanel();
+		
+        String week[]= { "Monday","Tuesday","Wednesday",
+                "Thursday","Friday","Saturday","Sunday"};
+
+
+        
+        //create list
+        b= new JList(week);
+
+		//set a selected index
+		b.setSelectedIndex(2);
+
+		//add list to panel
+		workersTab.add(b);
+
+
+		
 		JLabel softwareTab = new JLabel("Software");
 		
 		myTabbedPane.addTab("Workers", workersTab);

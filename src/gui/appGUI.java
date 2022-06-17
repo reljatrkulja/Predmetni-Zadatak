@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import model.Adresa;
 
 public class appGUI {
 
