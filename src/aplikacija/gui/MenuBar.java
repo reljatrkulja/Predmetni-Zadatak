@@ -17,7 +17,7 @@ public class MenuBar extends JMenuBar {
 	 */
 	private static final long serialVersionUID = -5511353684955783810L;
 
-	public MenuBar(final JFrame parent){
+	public MenuBar(final Frame1 parent){
 		JMenuBar menuBar = new JMenuBar();
 		
 		JMenu fileMenu = new JMenu("File");
@@ -38,7 +38,7 @@ public class MenuBar extends JMenuBar {
 		newWorker.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				dialogWorker dialog = new dialogWorker(parent, "Add new Worker", true);
+				dialogWorker dialog = new dialogWorker(parent, "Add new Worker", true, false);
 				dialog.setVisible(true);
 			}
 		});
@@ -52,6 +52,14 @@ public class MenuBar extends JMenuBar {
 			public void actionPerformed(ActionEvent arg0) {
 				dialogSoftware dialog = new dialogSoftware(parent, "Add new Software", true);
 				dialog.setVisible(true);
+			}
+		});
+		
+		exitMenutItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				parent.dispose();
 			}
 		});
 		
