@@ -17,7 +17,7 @@ public class MenuBar extends JMenuBar {
 	 */
 	private static final long serialVersionUID = -5511353684955783810L;
 
-	public MenuBar(final JFrame parent){
+	public MenuBar(final Frame1 parent){
 		JMenuBar menuBar = new JMenuBar();
 		
 		JMenu fileMenu = new JMenu("File");
