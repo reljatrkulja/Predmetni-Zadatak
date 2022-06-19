@@ -76,4 +76,8 @@ public class Zaposleni {
 	public void setRadnoMesto(RadnoMesto radnoMesto) {
 		this.radnoMesto = radnoMesto;
 	}
+	@Override
+	public String toString() {
+		return ime + " " + prezime + " " + datumRodjenja;
+	}
 }

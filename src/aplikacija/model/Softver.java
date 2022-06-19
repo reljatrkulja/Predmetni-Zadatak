@@ -53,5 +53,8 @@ public class Softver {
 		this.render = render;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return naziv;
+	}
 }

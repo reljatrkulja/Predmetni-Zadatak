@@ -1,6 +1,7 @@
 package aplikacija;
 
 import aplikacija.gui.Frame1;
+import aplikacija.gui.Toolbar;
 import aplikacija.utils.Utils;
 
 public class main {
@@ -8,5 +9,6 @@ public class main {
 		Utils.popuniListe();
 		Frame1 frame = new Frame1();
 		frame.setVisible(true); // Prozor je inicijalno nevidljiv
+		
 	}
 }

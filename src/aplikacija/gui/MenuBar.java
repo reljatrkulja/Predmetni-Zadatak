@@ -55,6 +55,15 @@ public class MenuBar extends JMenuBar {
 			}
 		});
 		
+		exitMenutItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				parent.dispose();
+			}
+		});
+		
 		newMenutItem.add(newSoftware);
 		
 		menuBar.add(fileMenu);

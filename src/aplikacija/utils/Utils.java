@@ -98,5 +98,5 @@ public class Utils {
 	public static ArrayList<Zaposleni> getZaposleni() {
 		return zaposleni;
 	}
-	
+
 }

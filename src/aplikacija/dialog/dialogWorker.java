@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 
+import javax.sound.midi.SysexMessage;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -21,6 +22,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import aplikacija.model.Zaposleni;
+import aplikacija.utils.Utils;
 import aplikacija.model.Adresa;
 import aplikacija.model.Softver;
 import aplikacija.model.RadnoMesto;
@@ -43,6 +45,8 @@ public class dialogWorker extends JDialog implements ActionListener {
 	
 	private int mode = 1;
 	private JTextField field;
+	
+	Utils utility =  new Utils();
 
 	public dialogWorker(Frame parent, String title, boolean modal) {
 		super(parent, title, modal);
@@ -134,12 +138,17 @@ public class dialogWorker extends JDialog implements ActionListener {
 		JLabel softver = new JLabel("Softver:");
 		polja.add(softver);
 		
-		JTextField softverPolje = new JTextField();
+		JComboBox softverPolje = new JComboBox<Softver>();
 		polja.add(softverPolje);
 		
-		String softverString = softverPolje.getText();
+		
+		for(Softver s:utility.getSoftveri()) {
+			softverPolje.addItem(s);
+		}
+		
+		//String softverString = softverPolje.getText();
 		Softver softverNaziv = new Softver();
-		softverNaziv.setNaziv(softverString);
+		//softverNaziv.setNaziv(softverString);
 		
 		///////////////////////// /Radno mesto
 		JLabel radnoMesto = new JLabel("Radno mesto:");
@@ -157,6 +166,57 @@ public class dialogWorker extends JDialog implements ActionListener {
 		btnOk.addActionListener(this);
 		panCommands.add(btnOk);
 		
+		btnOk.addActionListener(x -> {
+			System.out.println("ovo radi");
+			System.out.println(imePolje.getText());
+			if(imePolje.getText().equals("") || prezimePolje.getText().equals("") || jmbgPolje.getText().equals("")) {
+				JOptionPane.showMessageDialog(parent, "Eror bre jebote");
+			}else{
+			
+			String userIme = imePolje.getText();
+			String userPrezime = prezimePolje.getText();
+			String userJmbg = jmbgPolje.getText();
+			String userDatum = datumPolje.getText();
+			String userEmail = emailPolje.getText();
+			String userUlica = nazivUlicePolje.getText();
+			String userUlicaBroj = brojUlicePolje.getText();
+			String userGrad = gradPolje.getText();
+			int userSoftware = softverPolje.getSelectedIndex();
+			int userRadno = radnoMestoPolje.getSelectedIndex();
+			
+			Adresa a = new Adresa();
+			a.setBroj(userUlicaBroj);
+			a.setGrad(userGrad);
+			a.setUlica(userUlica);
+			
+			
+			Zaposleni Z = new Zaposleni();
+			Z.setIme(userIme);
+			Z.setPrezime(userPrezime);
+			Z.setJmbg(userJmbg);
+			Z.setEmail(userEmail);
+			if(userRadno == 0) {
+				Z.setRadnoMesto(RadnoMesto.Animator);
+			}else if(userRadno == 1) {
+				Z.setRadnoMesto(RadnoMesto.Ilustrator);
+			}else if(userRadno == 2) {
+				Z.setRadnoMesto(RadnoMesto.Modelator);
+			}else {
+				Z.setRadnoMesto(RadnoMesto.Riger);
+			}
+			Z.setSoftver(utility.getSoftveri().get(userSoftware));
+			Z.setAdresa(a);
+			
+			utility.getZaposleni().add(Z);
+			
+			System.out.println(Z.getIme() + " " + Z.getPrezime());
+			
+			Frame1 f = new Frame1();
+			f.osvezi();
+			parent.dispose();
+			}
+		});
+		
 		JButton btnCancel = new JButton("CANCEL");
 		btnCancel.addActionListener(this);
 		panCommands.add(btnCancel);
@@ -164,29 +224,6 @@ public class dialogWorker extends JDialog implements ActionListener {
 		add(polja, BorderLayout.NORTH);
 		add(panCommands, BorderLayout.SOUTH);
 		
-		
-		
-		btnOk.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Zaposleni user= new Zaposleni();
-				user.setIme(imePolje.getText());
-				user.setPrezime(prezimePolje.getText());
-				user.setJmbg(jmbgPolje.getText());
-				//user.setDatumRodjenja(datum1);
-				user.setEmail(emailPolje.getText());
-				user.setAdresa(adresa);
-				user.setSoftver(softverNaziv);
-				//user.setRadnoMesto(radnoMestoPolje.values());
-				
-				/*if(Zaposleni.register(user)) {
-					Frame1.setView(new Frame1());
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "JMBG već postoji");
-				}*/
-				
-			}
-		});
 	}
 	
 	@Override
