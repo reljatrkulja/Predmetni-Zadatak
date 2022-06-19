@@ -48,7 +48,7 @@ public class dialogWorker extends JDialog implements ActionListener {
 	
 	Utils utility =  new Utils();
 
-	public dialogWorker(Frame parent, String title, boolean modal) {
+	public dialogWorker(Frame1 parent, String title, boolean modal, boolean edit) {
 		super(parent, title, modal);
 		mode = dialogWorker.CANCEL;
 		setLayout(new BorderLayout());
@@ -56,6 +56,13 @@ public class dialogWorker extends JDialog implements ActionListener {
 		setSize(500, 500);
 		setLocationRelativeTo(parent);
 
+		Zaposleni zaposleni = null;
+		
+		if(edit == true) {
+			int i = parent.getSelectedIndex();
+			zaposleni = utility.getZaposleni().get(i);
+		}
+		
 		// Deo za unos zaposlenog
 		JPanel polja = new JPanel(new GridLayout(12, 2));
 
@@ -91,6 +98,8 @@ public class dialogWorker extends JDialog implements ActionListener {
 		polja.add(datumPolje);
 		datumPolje.setValue(new Date());
 
+
+		
 		
 		////////////////////// Email
 		JLabel email = new JLabel("Email:");
@@ -159,6 +168,16 @@ public class dialogWorker extends JDialog implements ActionListener {
 	
 		radnoMestoPolje.getSelectedItem();
 		
+		if(edit == true) {
+			imePolje.setText(zaposleni.getIme());
+			prezimePolje.setText(zaposleni.getPrezime());
+			emailPolje.setText(zaposleni.getEmail());
+			jmbgPolje.setText(zaposleni.getJmbg());
+			brojUlicePolje.setText(zaposleni.getAdresa().getBroj());
+			nazivUlicePolje.setText(zaposleni.getAdresa().getUlica());
+			gradPolje.setText(zaposleni.getAdresa().getGrad());
+		}
+		
 		// Deo za dugmad
 		JPanel panCommands = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		
@@ -189,6 +208,7 @@ public class dialogWorker extends JDialog implements ActionListener {
 			a.setGrad(userGrad);
 			a.setUlica(userUlica);
 			
+
 			
 			Zaposleni Z = new Zaposleni();
 			Z.setIme(userIme);
@@ -207,10 +227,15 @@ public class dialogWorker extends JDialog implements ActionListener {
 			Z.setSoftver(utility.getSoftveri().get(userSoftware));
 			Z.setAdresa(a);
 			
-			utility.getZaposleni().add(Z);
+			if(edit == true) {
+				int i = parent.getSelectedIndex();
+				utility.setZaposleni(i, Z);
+			}else {
 			
-			System.out.println(Z.getIme() + " " + Z.getPrezime());
+				utility.getZaposleni().add(Z);
 			
+				System.out.println(Z.getIme() + " " + Z.getPrezime());
+			}
 			Frame1 f = new Frame1();
 			f.osvezi();
 			parent.dispose();

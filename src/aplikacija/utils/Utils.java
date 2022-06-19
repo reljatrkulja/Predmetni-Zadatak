@@ -98,5 +98,7 @@ public class Utils {
 	public static ArrayList<Zaposleni> getZaposleni() {
 		return zaposleni;
 	}
-
+	public static void setZaposleni(int i, Zaposleni novi) {
+		zaposleni.set(i, novi);
+	}
 }

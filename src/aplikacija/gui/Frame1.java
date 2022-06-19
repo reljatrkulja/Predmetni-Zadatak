@@ -9,6 +9,7 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
@@ -21,6 +22,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import aplikacija.model.Softver;
@@ -45,10 +47,20 @@ public class Frame1 extends JFrame implements ChangeListener {
 	JTabbedPane myTabbedPane;
 	JScrollPane ztScrollPane;
 	
+	int selectedIndex;
+	
+	public int getSelectedIndex() {
+		selectedIndex = zaposleniTable.getSelectedRow();
+		System.out.println(selectedIndex);
+		return selectedIndex;
+	}
+	
 	public void osvezi() {
 		uradiOpetFor();
 		System.out.println("ovo radi");
 	}
+	
+	
 	
 	private void uradiOpetFor() {
 		
@@ -78,6 +90,7 @@ public class Frame1 extends JFrame implements ChangeListener {
 		zaposleniTable.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		zaposleniTable.setDefaultEditor(Object.class, null);
 		JScrollPane ztScrollPane = new JScrollPane(zaposleniTable);
+	
 		
 //		Pravljenje tabele softvera		
 		String[] softverHeader = new String[] { "Naziv", "Cetkice", "Format fajla", "Alati", "Render" };
@@ -180,6 +193,7 @@ public class Frame1 extends JFrame implements ChangeListener {
 		zaposleniTable.setDefaultEditor(Object.class, null);
 		JScrollPane ztScrollPane = new JScrollPane(zaposleniTable);
 		
+		
 //		Pravljenje tabele softvera		
 		String[] softverHeader = new String[] { "Naziv", "Cetkice", "Format fajla", "Alati", "Render" };
 
@@ -223,6 +237,8 @@ public class Frame1 extends JFrame implements ChangeListener {
 
 		
 		this.add(myTabbedPane);
+		
+
 	}
 
 	@Override

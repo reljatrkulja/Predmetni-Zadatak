@@ -38,7 +38,7 @@ public class MenuBar extends JMenuBar {
 		newWorker.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				dialogWorker dialog = new dialogWorker(parent, "Add new Worker", true);
+				dialogWorker dialog = new dialogWorker(parent, "Add new Worker", true, false);
 				dialog.setVisible(true);
 			}
 		});
@@ -59,7 +59,6 @@ public class MenuBar extends JMenuBar {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				parent.dispose();
 			}
 		});

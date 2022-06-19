@@ -55,7 +55,7 @@ public class Toolbar extends JToolBar {
 				int temp = parent.currentTab;
 				
 				if(temp == 0) {
-					dialogWorker dialog = new dialogWorker(parent, "Add new Worker", true);
+					dialogWorker dialog = new dialogWorker(parent, "Add new Worker", true, false);
 					dialog.setVisible(true);
 				}
 				else {
@@ -73,6 +73,22 @@ public class Toolbar extends JToolBar {
 		btnEdit.setToolTipText("Edit");
 		btnEdit.setIcon(editImage);
 		add(btnEdit);
+		
+		btnEdit.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				int temp = parent.currentTab;
+				
+				if(temp == 0) {
+					dialogWorker dialog = new dialogWorker(parent, "Edit Selected Worker", true, true);
+					dialog.setVisible(true);
+				}
+				else {
+					dialogSoftware dialog = new dialogSoftware(parent, "Add new Software", true);
+					dialog.setVisible(true);
+				}	
+			}
+		});
 
 		addSeparator();
 
