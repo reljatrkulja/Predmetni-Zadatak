@@ -7,9 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
@@ -22,7 +19,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import aplikacija.model.Softver;
@@ -38,11 +34,10 @@ public class Frame1 extends JFrame implements ChangeListener {
 	protected int currentTab = 0;
 	
 	JTable zaposleniTable;
+	JTable softwareTable;
 	DefaultTableModel wtModel;
 	Object[][] contentZaposleni;
 	int velicinaZaposleni;
-	String[] zaposleniHeader = new String[] { "Ime", "Prezime", "JMBG", "Datum rodjenja", "Email", "Adresa", "Softver",
-	"Radno mesto"};
 	
 	JTabbedPane myTabbedPane;
 	JScrollPane ztScrollPane;
@@ -50,8 +45,15 @@ public class Frame1 extends JFrame implements ChangeListener {
 	int selectedIndex;
 	
 	public int getSelectedIndex() {
-		selectedIndex = zaposleniTable.getSelectedRow();
-		System.out.println(selectedIndex);
+		int selectedIndex;
+		
+		if (currentTab == 0) {
+			selectedIndex = zaposleniTable.getSelectedRow();
+		} else {
+			selectedIndex = softwareTable.getSelectedRow();
+		}
+		
+		System.out.println(selectedIndex);			
 		return selectedIndex;
 	}
 	
@@ -68,64 +70,7 @@ public class Frame1 extends JFrame implements ChangeListener {
 		
 		myTabbedPane.removeAll();
 		
-		velicinaZaposleni = Utils.getZaposleni().size();
-		contentZaposleni = new Object[velicinaZaposleni][zaposleniHeader.length];
-		for(int i = 0; i < velicinaZaposleni; i++) {
-			Zaposleni zaposleni = Utils.getZaposleni().get(i);
-			contentZaposleni[i][0] = zaposleni.getIme();
-			contentZaposleni[i][1] = zaposleni.getPrezime();
-			contentZaposleni[i][2] = zaposleni.getJmbg();
-			contentZaposleni[i][3] = zaposleni.getDatumRodjenja();
-			contentZaposleni[i][4] = zaposleni.getEmail();
-			contentZaposleni[i][5] = zaposleni.getAdresa().getUlica() + " " + zaposleni.getAdresa().getBroj() + ", " + zaposleni.getAdresa().getGrad();
-			contentZaposleni[i][6] = zaposleni.getSoftver().getNaziv();
-			contentZaposleni[i][7] = zaposleni.getRadnoMesto();
-		}
-		
-		wtModel = new DefaultTableModel(contentZaposleni, zaposleniHeader);
-		zaposleniTable = new JTable(wtModel);
-		
-		zaposleniTable.setRowSelectionAllowed(true);
-		zaposleniTable.setColumnSelectionAllowed(false);
-		zaposleniTable.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		zaposleniTable.setDefaultEditor(Object.class, null);
-		JScrollPane ztScrollPane = new JScrollPane(zaposleniTable);
-	
-		
-//		Pravljenje tabele softvera		
-		String[] softverHeader = new String[] { "Naziv", "Cetkice", "Format fajla", "Alati", "Render" };
-
-		int velicinaSoftver = Utils.getSoftveri().size();
-		Object[][] contentSoftver = new Object[velicinaSoftver][softverHeader.length];
-		for(int i = 0; i < velicinaSoftver; i++) {
-			Softver softver = Utils.getSoftveri().get(i);
-			String cetkiceString = "";
-			int brojCetkica = 0;
-			for(int j = 0; j < softver.getCetkice().size(); j++) {
-				if(brojCetkica != 0) {
-					cetkiceString += ", ";
-				}
-				cetkiceString += softver.getCetkice().get(j).getNaziv();
-				brojCetkica ++;
-			}
-			contentSoftver[i][0] = softver.getNaziv();
-			contentSoftver[i][1] = cetkiceString;
-			contentSoftver[i][2] = softver.getFajlFormat();
-			contentSoftver[i][3] = softver.getAlati();
-			contentSoftver[i][4] = softver.getRender().getNaziv();
-		}
-		
-		DefaultTableModel stModel = new DefaultTableModel(contentSoftver, softverHeader);
-		JTable softwareTable = new JTable(stModel);
-		
-		softwareTable.setRowSelectionAllowed(true);
-		softwareTable.setColumnSelectionAllowed(false);
-		softwareTable.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		softwareTable.setDefaultEditor(Object.class, null);
-		JScrollPane stScrollPane = new JScrollPane(softwareTable);
-		
-		myTabbedPane.addTab("Zaposleni", ztScrollPane);
-		myTabbedPane.addTab("Softver", stScrollPane);
+		generisiTabele();
 		
 		this.setVisible(true);
 	}
@@ -168,8 +113,22 @@ public class Frame1 extends JFrame implements ChangeListener {
 		
 		myTabbedPane = new JTabbedPane();
 		
-//		Pravljenje tabele zaposlenih
+		generisiTabele();
+		
+		myTabbedPane.addChangeListener(this);
+		
+		currentTab = myTabbedPane.getSelectedIndex();
 
+		this.add(myTabbedPane);
+		
+
+	}
+	
+	private void generisiTabele() {
+//		Pravljenje tabele zaposlenih
+		String[] zaposleniHeader = new String[] { "Ime", "Prezime", "JMBG", "Datum rodjenja", "Email", "Adresa", "Softver",
+		"Radno mesto"};
+		
 		velicinaZaposleni = Utils.getZaposleni().size();
 		contentZaposleni = new Object[velicinaZaposleni][zaposleniHeader.length];
 		for(int i = 0; i < velicinaZaposleni; i++) {
@@ -192,7 +151,7 @@ public class Frame1 extends JFrame implements ChangeListener {
 		zaposleniTable.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		zaposleniTable.setDefaultEditor(Object.class, null);
 		JScrollPane ztScrollPane = new JScrollPane(zaposleniTable);
-		
+	
 		
 //		Pravljenje tabele softvera		
 		String[] softverHeader = new String[] { "Naziv", "Cetkice", "Format fajla", "Alati", "Render" };
@@ -218,7 +177,7 @@ public class Frame1 extends JFrame implements ChangeListener {
 		}
 		
 		DefaultTableModel stModel = new DefaultTableModel(contentSoftver, softverHeader);
-		JTable softwareTable = new JTable(stModel);
+		softwareTable = new JTable(stModel);
 		
 		softwareTable.setRowSelectionAllowed(true);
 		softwareTable.setColumnSelectionAllowed(false);
@@ -228,17 +187,6 @@ public class Frame1 extends JFrame implements ChangeListener {
 		
 		myTabbedPane.addTab("Zaposleni", ztScrollPane);
 		myTabbedPane.addTab("Softver", stScrollPane);
-
-		
-		
-		myTabbedPane.addChangeListener(this);
-		
-		currentTab = myTabbedPane.getSelectedIndex();
-
-		
-		this.add(myTabbedPane);
-		
-
 	}
 
 	@Override
