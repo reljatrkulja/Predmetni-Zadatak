@@ -6,12 +6,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 import aplikacija.dialog.dialogSoftware;
 import aplikacija.dialog.dialogWorker;
+import aplikacija.utils.Utils;
 
 public class Toolbar extends JToolBar {
 	/**
@@ -59,7 +59,7 @@ public class Toolbar extends JToolBar {
 					dialog.setVisible(true);
 				}
 				else {
-					dialogSoftware dialog = new dialogSoftware(parent, "Add new Software", true);
+					dialogSoftware dialog = new dialogSoftware(parent, "Add new Software", true , false);
 					dialog.setVisible(true);
 				}	
 			}
@@ -84,7 +84,7 @@ public class Toolbar extends JToolBar {
 					dialog.setVisible(true);
 				}
 				else {
-					dialogSoftware dialog = new dialogSoftware(parent, "Add new Software", true);
+					dialogSoftware dialog = new dialogSoftware(parent, "Add new Software", true , true);
 					dialog.setVisible(true);
 				}	
 			}
@@ -96,6 +96,31 @@ public class Toolbar extends JToolBar {
 		btnDelete.setToolTipText("Delete");
 		btnDelete.setIcon(deleteImage);
 		add(btnDelete);
+		
+		btnDelete.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int temp = parent.currentTab;
+				int tableIndex = parent.getSelectedIndex();
+				
+				if(tableIndex == -1) {
+					System.out.println("Greska, nije selektovan nijedan red u tabeli!");
+					return;
+				}
+				
+				if(temp == 0) {
+					Utils.getZaposleni().remove(tableIndex);
+				} else {
+					Utils.getSoftveri().remove(tableIndex);
+				}
+				
+				Frame1 f = new Frame1();
+				f.osvezi();
+				parent.dispose();
+	
+			}
+		});
 
 		setFloatable(true);
 	}
