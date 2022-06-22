@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
+
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
@@ -55,8 +56,6 @@ public class Frame1 extends JFrame implements ChangeListener {
 		} else {
 			selectedIndex = softwareTable.getSelectedRow();
 		}
-
-		System.out.println(selectedIndex);
 		return selectedIndex;
 	}
 
@@ -71,7 +70,9 @@ public class Frame1 extends JFrame implements ChangeListener {
 
 		myTabbedPane.removeAll();
 
+
 		generisiTabele();
+
 
 		this.setVisible(true);
 	}
@@ -123,11 +124,14 @@ public class Frame1 extends JFrame implements ChangeListener {
 
 	}
 
+
+
+	
 	private void generisiTabele() {
 //		Pravljenje tabele zaposlenih
-		String[] zaposleniHeader = new String[] { "Ime", "Prezime", "JMBG", "Datum rodjenja", "Email", "Adresa",
-				"Softver", "Radno mesto" };
-
+		String[] zaposleniHeader = new String[] { "Ime", "Prezime", "JMBG", "Datum rodjenja", "Email", "Adresa", "Softver",
+		"Radno mesto"};
+		
 		velicinaZaposleni = Utils.getZaposleni().size();
 		contentZaposleni = new Object[velicinaZaposleni][zaposleniHeader.length];
 		for (int i = 0; i < velicinaZaposleni; i++) {
@@ -184,6 +188,7 @@ public class Frame1 extends JFrame implements ChangeListener {
 		softwareTable.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		softwareTable.setDefaultEditor(Object.class, null);
 
+
 		JScrollPane stScrollPane = new JScrollPane(softwareTable);
 
 		softwareTable.addMouseListener(new MouseAdapter() {
@@ -204,6 +209,10 @@ public class Frame1 extends JFrame implements ChangeListener {
 				}
 			}
 		});
+
+
+
+		
 
 		myTabbedPane.addTab("Zaposleni", ztScrollPane);
 		myTabbedPane.addTab("Softver", stScrollPane);
