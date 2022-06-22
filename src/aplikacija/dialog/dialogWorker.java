@@ -1,6 +1,5 @@
 package aplikacija.dialog;
 
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Frame;
@@ -8,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.Formatter;
+import java.util.Locale;
 
 import javax.sound.midi.SysexMessage;
 import javax.swing.JButton;
@@ -31,6 +32,8 @@ import aplikacija.gui.Frame1;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+
 import javax.swing.JFormattedTextField;
 
 import java.awt.Frame;
@@ -39,14 +42,14 @@ import javax.swing.JDialog;
 public class dialogWorker extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 3591599721565020284L;
-	
+
 	public static final int OK = 0;
 	public static final int CANCEL = 1;
-	
+
 	private int mode = 1;
 	private JTextField field;
-	
-	Utils utility =  new Utils();
+
+	Utils utility = new Utils();
 
 	public dialogWorker(Frame1 parent, String title, boolean modal, boolean edit) {
 		super(parent, title, modal);
@@ -57,118 +60,111 @@ public class dialogWorker extends JDialog implements ActionListener {
 		setLocationRelativeTo(parent);
 
 		Zaposleni zaposleni = null;
-		
-		if(edit == true) {
+
+		if (edit == true) {
 			int i = parent.getSelectedIndex();
 			zaposleni = utility.getZaposleni().get(i);
 		}
-		
+
 		// Deo za unos zaposlenog
 		JPanel polja = new JPanel(new GridLayout(12, 2));
 
 		////////////////////// Ime
 		JLabel ime = new JLabel("Ime:");
 		polja.add(ime);
-		
+
 		JTextField imePolje = new JTextField();
 		polja.add(imePolje);
-		
-		
+
 		////////////////////// Prezime
 		JLabel prezime = new JLabel("Prezime:");
 		polja.add(prezime);
-	
+
 		JTextField prezimePolje = new JTextField();
 		polja.add(prezimePolje);
-		
-		
-        ////////////////////// JMBG
+
+		////////////////////// JMBG
 		JLabel jmbg = new JLabel("JMBG:");
 		polja.add(jmbg);
-		
+
 		JTextField jmbgPolje = new JTextField();
 		polja.add(jmbgPolje);
-		
-		
+
 		////////////////////// Datum rodjenja
-		JLabel datumRodjenja = new JLabel("Datum rodjenja:");
+		JLabel datumRodjenja = new JLabel("Datum rodjenja (format dd/mm/yyyy):");
 		polja.add(datumRodjenja);
-		
+
 		JFormattedTextField datumPolje = new JFormattedTextField(SimpleDateFormat.getDateInstance(DateFormat.MEDIUM));
 		polja.add(datumPolje);
 		datumPolje.setValue(new Date());
 
-
-		
-		
 		////////////////////// Email
 		JLabel email = new JLabel("Email:");
 		polja.add(email);
-		
+
 		JTextField emailPolje = new JTextField();
 		polja.add(emailPolje);
-		
+
 		String emailString = new String(email.toString());
-		
+
 		///////////////////// Adresa
-		//Broj ulice
+		// Broj ulice
 		JLabel brojUlice = new JLabel("ADRESA - Broj ulice:");
 		polja.add(brojUlice);
-		
+
 		JTextField brojUlicePolje = new JTextField();
 		polja.add(brojUlicePolje);
-		
+
 		String brojUliceString = brojUlicePolje.getText();
-		
-		//Naziv ulice
+
+		// Naziv ulice
 		JLabel nazivUlice = new JLabel("Naziv ulice:");
 		polja.add(nazivUlice);
-		
+
 		JTextField nazivUlicePolje = new JTextField();
 		polja.add(nazivUlicePolje);
-		
+
 		String nazivUliceString = nazivUlicePolje.getText();
-		
-		//Grad
+
+		// Grad
 		JLabel grad = new JLabel("Grad:");
 		polja.add(grad);
-		
+
 		JTextField gradPolje = new JTextField();
 		polja.add(gradPolje);
-		
+
 		String gradString = gradPolje.getText();
-		
+
 		Adresa adresa = new Adresa();
 		adresa.setBroj(brojUliceString);
 		adresa.setUlica(nazivUliceString);
 		adresa.setGrad(gradString);
-		
-		//////////////////////////////Softver
+
+		////////////////////////////// Softver
 		JLabel softver = new JLabel("Softver:");
 		polja.add(softver);
-		
+
 		JComboBox softverPolje = new JComboBox<Softver>();
 		polja.add(softverPolje);
-		
-		
-		for(Softver s:utility.getSoftveri()) {
+
+		for (Softver s : utility.getSoftveri()) {
 			softverPolje.addItem(s);
 		}
-		
-		//String softverString = softverPolje.getText();
+
+		// String softverString = softverPolje.getText();
 		Softver softverNaziv = new Softver();
-		//softverNaziv.setNaziv(softverString);
-		
+		// softverNaziv.setNaziv(softverString);
+
 		///////////////////////// /Radno mesto
 		JLabel radnoMesto = new JLabel("Radno mesto:");
 		polja.add(radnoMesto);
-		
+
 		JComboBox radnoMestoPolje = new JComboBox<RadnoMesto>(RadnoMesto.values());
 		polja.add(radnoMestoPolje);
-	
+
 		radnoMestoPolje.getSelectedItem();
-		
-		if(edit == true) {
+
+		if (edit == true) {
 			imePolje.setText(zaposleni.getIme());
 			prezimePolje.setText(zaposleni.getPrezime());
 			emailPolje.setText(zaposleni.getEmail());
@@ -177,99 +173,121 @@ public class dialogWorker extends JDialog implements ActionListener {
 			nazivUlicePolje.setText(zaposleni.getAdresa().getUlica());
 			gradPolje.setText(zaposleni.getAdresa().getGrad());
 		}
-		
+
 		// Deo za dugmad
 		JPanel panCommands = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		
+
 		JButton btnOk = new JButton("OK");
 		btnOk.addActionListener(this);
 		panCommands.add(btnOk);
-		
+
 		btnOk.addActionListener(x -> {
 			System.out.println("ovo radi");
 			System.out.println(imePolje.getText());
-			if(imePolje.getText().equals("") || prezimePolje.getText().equals("") || jmbgPolje.getText().equals("")) {
-				JOptionPane.showMessageDialog(parent, "Eror bre jebote");
-			}else{
-			
-			String userIme = imePolje.getText();
-			String userPrezime = prezimePolje.getText();
-			String userJmbg = jmbgPolje.getText();
-			String userDatum = datumPolje.getText();
-			String userEmail = emailPolje.getText();
-			String userUlica = nazivUlicePolje.getText();
-			String userUlicaBroj = brojUlicePolje.getText();
-			String userGrad = gradPolje.getText();
-			int userSoftware = softverPolje.getSelectedIndex();
-			int userRadno = radnoMestoPolje.getSelectedIndex();
-			
-			Adresa a = new Adresa();
-			a.setBroj(userUlicaBroj);
-			a.setGrad(userGrad);
-			a.setUlica(userUlica);
-			
+			Zaposleni zaposlenish = null;
 
-			
-			Zaposleni Z = new Zaposleni();
-			Z.setIme(userIme);
-			Z.setPrezime(userPrezime);
-			Z.setJmbg(userJmbg);
-			Z.setEmail(userEmail);
-			if(userRadno == 0) {
-				Z.setRadnoMesto(RadnoMesto.Animator);
-			}else if(userRadno == 1) {
-				Z.setRadnoMesto(RadnoMesto.Ilustrator);
-			}else if(userRadno == 2) {
-				Z.setRadnoMesto(RadnoMesto.Modelator);
-			}else {
-				Z.setRadnoMesto(RadnoMesto.Riger);
-			}
-			Z.setSoftver(utility.getSoftveri().get(userSoftware));
-			Z.setAdresa(a);
-			
-			if(edit == true) {
+			if (edit == true) {
 				int i = parent.getSelectedIndex();
-				utility.setZaposleni(i, Z);
-			}else {
-			
-				utility.getZaposleni().add(Z);
-			
-				System.out.println(Z.getIme() + " " + Z.getPrezime());
+				zaposlenish = utility.getZaposleni().get(i);
 			}
+			
+			if (imePolje.getText().equals("") || prezimePolje.getText().equals("") || jmbgPolje.getText().equals("")) {
+				JOptionPane.showMessageDialog(parent, "Error: Zahtevana polja nisu popunjena");
+			} else {
+
+				int velicinaZaposleni = utility.getZaposleni().size();
+
+				String userIme = imePolje.getText();
+				String userPrezime = prezimePolje.getText();
+				String userJmbg = jmbgPolje.getText();
+				String userDatum = datumPolje.getText();
+				String userEmail = emailPolje.getText();
+				String userUlica = nazivUlicePolje.getText();
+				String userUlicaBroj = brojUlicePolje.getText();
+				String userGrad = gradPolje.getText();
+				int userSoftware = softverPolje.getSelectedIndex();
+				int userRadno = radnoMestoPolje.getSelectedIndex();
+
+				Boolean istiJmbg = false;
+
+				velicinaZaposleni = Utils.getZaposleni().size();
+				for (int i = 0; i < velicinaZaposleni; i++) {
+					if (userJmbg.equals(utility.getZaposleni().get(i).getJmbg())) {
+						istiJmbg = true;
+					}
+				}
+
+				if (istiJmbg == true && !zaposlenish.getJmbg().equals(userJmbg)) {
+
+					JOptionPane.showMessageDialog(parent, "Error: Unet je postojeci JMBG");
+
+				} else {
+
+					Adresa a = new Adresa();
+					a.setBroj(userUlicaBroj);
+					a.setGrad(userGrad);
+					a.setUlica(userUlica);
+
+					Zaposleni Z = new Zaposleni();
+					Z.setIme(userIme);
+					Z.setPrezime(userPrezime);
+					Z.setJmbg(userJmbg);
+					Z.setDatumRodjenja(null);
+					Z.setEmail(userEmail);
+					if (userRadno == 0) {
+						Z.setRadnoMesto(RadnoMesto.Animator);
+					} else if (userRadno == 1) {
+						Z.setRadnoMesto(RadnoMesto.Ilustrator);
+					} else if (userRadno == 2) {
+						Z.setRadnoMesto(RadnoMesto.Modelator);
+					} else {
+						Z.setRadnoMesto(RadnoMesto.Riger);
+					}
+					Z.setSoftver(utility.getSoftveri().get(userSoftware));
+					Z.setAdresa(a);
+
+					if (edit == true) {
+						int f = parent.getSelectedIndex();
+						utility.setZaposleni(f, Z);
+					} else {
+						utility.getZaposleni().add(Z);
+						System.out.println(Z.getIme() + " " + Z.getPrezime());
+					}
+				}
+			}
+
 			Frame1 f = new Frame1();
 			f.osvezi();
 			parent.dispose();
-			}
 		});
-		
+
 		JButton btnCancel = new JButton("CANCEL");
 		btnCancel.addActionListener(this);
 		panCommands.add(btnCancel);
-		
+
 		add(polja, BorderLayout.NORTH);
 		add(panCommands, BorderLayout.SOUTH);
-		
+
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getActionCommand().equals("OK")) {
 			mode = dialogWorker.OK;
-			
+
 		} else {
 			mode = dialogWorker.CANCEL;
 		}
 		setVisible(false);
 	}
-	
+
 	public int getMode() {
 		return mode;
 	}
-	
+
 	public void setMode(int mode) {
 		this.mode = mode;
 	}
-	
 
 	public JTextField getArea() {
 		return field;
@@ -278,9 +296,5 @@ public class dialogWorker extends JDialog implements ActionListener {
 	public void setField(JTextField field) {
 		this.field = field;
 	}
-	
+
 }
-
-
-
-

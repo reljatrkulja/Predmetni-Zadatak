@@ -59,7 +59,7 @@ public class Toolbar extends JToolBar {
 					dialog.setVisible(true);
 				}
 				else {
-					dialogSoftware dialog = new dialogSoftware(parent, "Add new Software", true);
+					dialogSoftware dialog = new dialogSoftware(parent, "Add new Software", true , false);
 					dialog.setVisible(true);
 				}	
 			}
@@ -84,7 +84,7 @@ public class Toolbar extends JToolBar {
 					dialog.setVisible(true);
 				}
 				else {
-					dialogSoftware dialog = new dialogSoftware(parent, "Add new Software", true);
+					dialogSoftware dialog = new dialogSoftware(parent, "Add new Software", true , true);
 					dialog.setVisible(true);
 				}	
 			}

@@ -101,4 +101,7 @@ public class Utils {
 	public static void setZaposleni(int i, Zaposleni novi) {
 		zaposleni.set(i, novi);
 	}
+	public static void setSoftveri(int i, Softver novi) {
+		softveri.set(i, novi);
+	}
 }
